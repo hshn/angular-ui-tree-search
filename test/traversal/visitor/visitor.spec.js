@@ -1,4 +1,4 @@
-import { Visitor } from '../../../src/traversal/visitor/visitor';
+import { Visitor } from '../../../src/traversal/visitor';
 
 describe('visitor', () => {
   let visitor;

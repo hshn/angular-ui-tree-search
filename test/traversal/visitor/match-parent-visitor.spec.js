@@ -1,4 +1,4 @@
-import { MatchParentVisitor } from '../../../src/traversal/visitor/match-parent-visitor';
+import { MatchParentVisitor } from '../../../src/traversal/visitor';
 
 describe('MatchParentVisitor', () => {
   describe('leaveNode()', () => {

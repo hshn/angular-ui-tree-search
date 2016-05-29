@@ -1,4 +1,4 @@
-import { MatchVisitor } from '../../../src/traversal/visitor/match-visitor';
+import { MatchVisitor } from '../../../src/traversal/visitor';
 
 describe('MatchVisitorSpec', () => {
   describe('enterNode()', () => {

@@ -1,4 +1,4 @@
-import { MatchChildrenVisitor } from '../../../src/traversal/visitor/match-children-visitor';
+import { MatchChildrenVisitor } from '../../../src/traversal/visitor';
 
 describe('MatchChildrenVisitor', () => {
   let visitor;
