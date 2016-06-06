@@ -13,7 +13,7 @@ export function treeSearchFactory () {
     let traverser = builder
       .setMatcher(match)
       .get();
-1
+
     return (nodes || []).filter(node => traverser.traverse(node));
   }
 }
