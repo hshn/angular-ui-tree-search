@@ -1,10 +1,10 @@
 import { TraverserBuilder } from './traversal/traverser-builder';
 
-export function treeFilterFactory () {
+export function treeSearchFactory () {
 
   let builder = new TraverserBuilder();
 
-  return function treeFilter(nodes, query) {
+  return function treeSearch(nodes, query) {
 
     let match = query == null
       ? node => true
@@ -13,7 +13,7 @@ export function treeFilterFactory () {
     let traverser = builder
       .setMatcher(match)
       .get();
-
+1
     return (nodes || []).filter(node => traverser.traverse(node));
   }
 }

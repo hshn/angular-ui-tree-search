@@ -1,9 +1,9 @@
 {
-  "name": "ng-ui-tree-filter",
+  "name": "angular-ui-tree-search",
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "main": "dist/ng-ui-tree-filter.js",
+  "main": "dist/angular-ui-tree-search.js",
   "scripts": {
     "webpack": "webpack",
     "karma": "karma",

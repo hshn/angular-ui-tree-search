@@ -5,11 +5,11 @@ import './matchers';
 
 describe('treeFilter', () => {
 
-  let treeFilter, nodes;
+  let treeSearch, nodes;
   beforeEach(function () {
     angular.mock.module(module.name);
     angular.mock.inject($filter => {
-      treeFilter = $filter('treeFilter');
+      treeSearch = $filter('treeSearch');
       nodes = [
         node(1, 'node1', [
           node(11, 'node1.1', [
@@ -32,7 +32,7 @@ describe('treeFilter', () => {
   it('should match all nodes with empty query', () => {
 
     [null, undefined].forEach(query => {
-      let filtered = treeFilter(nodes);
+      let filtered = treeSearch(nodes);
 
       expect(filtered[0]).toBeNode({title: 'node1', $matched: true});
       expect(filtered[0].nodes[0]).toBeNode({title: 'node1.1', $matched: true});
@@ -45,7 +45,7 @@ describe('treeFilter', () => {
   });
 
   it('should match parents even if its children are only matched.', () => {
-    let filtered = treeFilter(nodes, 'node2.1');
+    let filtered = treeSearch(nodes, 'node2.1');
 
     expect(filtered[0]).toBeNode({title: 'node1', $matched: false});
     expect(filtered[0].nodes[0]).toBeNode({title: 'node1.1', $matched: false});
@@ -57,7 +57,7 @@ describe('treeFilter', () => {
   });
 
   it('should match children if node matches', () => {
-    let filtered = treeFilter(nodes, 'node1.1');
+    let filtered = treeSearch(nodes, 'node1.1');
 
     expect(filtered[0]).toBeNode({title: 'node1', $matched: true});
     expect(filtered[0].nodes[0]).toBeNode({title: 'node1.1', $matched: true});
