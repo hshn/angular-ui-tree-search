@@ -4,57 +4,212 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _search = require('./search');
+
+Object.keys(_search).forEach(function (key) {
+  if (key === "default") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _search[key];
+    }
+  });
+});
+
+},{"./search":2}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.searchFactory = searchFactory;
+
+var _visitor = require('../../traversal/visitor');
+
+searchFactory.$inject = ['uitsTraverseBuilder', 'uitsMatcherFactory'];
+function searchFactory(traverseBuilder, matcherFactory) {
+
+  var matchParentVisitor = new _visitor.MatchParentVisitor();
+  var matchChildrenVisitor = new _visitor.MatchChildrenVisitor();
+
+  return function (nodes, query) {
+    var matcher = matcherFactory(query);
+    var visitors = [new _visitor.MatchVisitor(matcher), matchChildrenVisitor, matchParentVisitor];
+
+    var traverser = traverseBuilder.setVisitors(visitors).get();
+
+    return (nodes || []).filter(function (node) {
+      return traverser.traverse(node);
+    });
+  };
+}
+
+},{"../../traversal/visitor":11}],3:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"./search":4,"dup":1}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.searchFilter = searchFilter;
+searchFilter.$inject = ['uitsSearch'];
+function searchFilter(search) {
+  return function (nodes, query) {
+    return search(nodes, query);
+  };
+}
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _matcherFactory = require('./matcher-factory');
+
+Object.keys(_matcherFactory).forEach(function (key) {
+  if (key === "default") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _matcherFactory[key];
+    }
+  });
+});
+
+var _traverseBuilder = require('./traverse-builder');
+
+Object.keys(_traverseBuilder).forEach(function (key) {
+  if (key === "default") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _traverseBuilder[key];
+    }
+  });
+});
+
+},{"./matcher-factory":6,"./traverse-builder":7}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.matcherFactoryProvider = matcherFactoryProvider;
+
+var _matcherFactory = require('../../matcher-factory/matcher-factory');
+
+function matcherFactoryProvider() {
+
+  var _properties = ['title'];
+  var _match = function _match(node, property, query) {
+    return (node[property] || '').indexOf(query) > -1;
+  };
+
+  this.setProperties = function (properties) {
+    return _properties = properties;
+  };
+
+  this.$get = function () {
+    return (0, _matcherFactory.matcherFactory)(_properties, _match);
+  };
+}
+
+},{"../../matcher-factory/matcher-factory":8}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.traverseBuilderProvider = traverseBuilderProvider;
+
+var _traverserBuilder = require('../../traversal/traverser-builder');
+
+function traverseBuilderProvider() {
+
+  var _childNodePath = 'nodes';
+  this.setChildNodePath = function (childNodePath) {
+    return _childNodePath = childNodePath;
+  };
+
+  this.$get = function () {
+    return new _traverserBuilder.TraverserBuilder(_childNodePath);
+  };
+}
+
+},{"../../traversal/traverser-builder":9}],8:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.matcherFactory = matcherFactory;
+function matcherFactory(properties, match) {
+  return function (query) {
+    return query == null ? function (node) {
+      return true;
+    } : function (node) {
+      return properties.reduce(function (matched, property) {
+        return matched || match(node, property, query);
+      }, false);
+    };
+  };
+}
+
+},{}],9:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.TraverserBuilder = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _traverser = require('./traverser');
-
-var _visitor = require('./visitor');
+var _traverser = require("./traverser");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var TraverserBuilder = exports.TraverserBuilder = function () {
-  function TraverserBuilder() {
+  function TraverserBuilder(childNodePath) {
     _classCallCheck(this, TraverserBuilder);
 
-    this.setChildNodePath('nodes');
-    this.setMatcher(function (node) {
-      throw new Error('No matcher was specified');
-    });
+    this.childNodePath = childNodePath;
+    this.visitors = [];
   }
 
   _createClass(TraverserBuilder, [{
-    key: 'setChildNodePath',
-    value: function setChildNodePath(childNodePath) {
-      this.childNodePath = childNodePath;
+    key: "addVisitors",
+    value: function addVisitors(visitor) {
+      this.visitors.push(visitor);
 
       return this;
     }
   }, {
-    key: 'setMatcher',
-    value: function setMatcher(matcher) {
-      this.matcher = matcher;
+    key: "setVisitors",
+    value: function setVisitors(visitors) {
+      this.visitors = visitors;
 
       return this;
     }
   }, {
-    key: 'get',
+    key: "get",
     value: function get() {
       var _this = this;
 
-      var visitors = [new _visitor.MatchVisitor(this.matcher), new _visitor.MatchChildrenVisitor(), new _visitor.MatchParentVisitor()];
-
       return new _traverser.Traverser(function (node) {
         return node[_this.childNodePath] || [];
-      }, visitors);
+      }, this.visitors);
     }
   }]);
 
   return TraverserBuilder;
 }();
 
-},{"./traverser":2,"./visitor":3}],2:[function(require,module,exports){
+},{"./traverser":10}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -102,7 +257,7 @@ var Traverser = exports.Traverser = function () {
   return Traverser;
 }();
 
-},{}],3:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -157,7 +312,7 @@ Object.keys(_matchChildrenVisitor).forEach(function (key) {
   });
 });
 
-},{"./match-children-visitor":4,"./match-parent-visitor":5,"./match-visitor":6,"./visitor":7}],4:[function(require,module,exports){
+},{"./match-children-visitor":12,"./match-parent-visitor":13,"./match-visitor":14,"./visitor":15}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -218,7 +373,7 @@ var MatchChildrenVisitor = exports.MatchChildrenVisitor = function (_Visitor) {
   return MatchChildrenVisitor;
 }(_visitor.Visitor);
 
-},{"./visitor":7}],5:[function(require,module,exports){
+},{"./visitor":15}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -265,7 +420,7 @@ var MatchParentVisitor = exports.MatchParentVisitor = function (_Visitor) {
   return MatchParentVisitor;
 }(_visitor.Visitor);
 
-},{"./visitor":7}],6:[function(require,module,exports){
+},{"./visitor":15}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -306,17 +461,12 @@ var MatchVisitor = exports.MatchVisitor = function (_Visitor) {
 
       return node;
     }
-  }, {
-    key: 'leaveNode',
-    value: function leaveNode(node) {
-      return _get(Object.getPrototypeOf(MatchVisitor.prototype), 'leaveNode', this).call(this, node);
-    }
   }]);
 
   return MatchVisitor;
 }(_visitor.Visitor);
 
-},{"./visitor":7}],7:[function(require,module,exports){
+},{"./visitor":15}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -353,37 +503,7 @@ var Visitor = exports.Visitor = function () {
   return Visitor;
 }();
 
-},{}],8:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.treeSearchFactory = treeSearchFactory;
-
-var _traverserBuilder = require('./traversal/traverser-builder');
-
-function treeSearchFactory() {
-
-  var builder = new _traverserBuilder.TraverserBuilder();
-
-  return function treeSearch(nodes, query) {
-
-    var match = query == null ? function (node) {
-      return true;
-    } : function (node) {
-      return (node.title || '').indexOf(query) > -1;
-    };
-
-    var traverser = builder.setMatcher(match).get();
-
-    return (nodes || []).filter(function (node) {
-      return traverser.traverse(node);
-    });
-  };
-}
-
-},{"./traversal/traverser-builder":1}],9:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -395,11 +515,15 @@ var _angular = (typeof window !== "undefined" ? window['angular'] : typeof globa
 
 var angular = _interopRequireWildcard(_angular);
 
-var _treeSearch = require('./tree-search');
+var _providers = require('./angular/providers');
+
+var _factory = require('./angular/factory');
+
+var _filters = require('./angular/filters');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = angular.module('angular-ui-tree-search', []).filter('treeSearch', _treeSearch.treeSearchFactory);
+exports.default = angular.module('ui.tree-search', []).provider('uitsMatcherFactory', _providers.matcherFactoryProvider).provider('uitsTraverseBuilder', _providers.traverseBuilderProvider).factory('uitsSearch', _factory.searchFactory).filter('uitsSearch', _filters.searchFilter);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./tree-search":8}]},{},[9]);
+},{"./angular/factory":1,"./angular/filters":3,"./angular/providers":5}]},{},[16]);
