@@ -3,7 +3,7 @@ import { treeSearchFactory } from './tree-search';
 import { defaultMatcherFactoryProvider } from './angular/providers';
 
 export default angular
-  .module('angular-ui-tree-search', [])
-  .provider('treeSearchMatcherFactoryDefault', defaultMatcherFactoryProvider)
+  .module('ui.tree-search', [])
+  .provider('uits.defaultMatcherFactory', defaultMatcherFactoryProvider)
   .filter('treeSearch', treeSearchFactory)
 ;
