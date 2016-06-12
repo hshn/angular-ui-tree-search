@@ -9,8 +9,7 @@
   "dependencies": {
     "angular": "^1.5.6",
     "angular-ui-tree": "^2.14.0",
-    "angular-ui-tree-search": "git+https://github.com/hshn/angular-ui-tree-search.git",
-    "bootstrap": "^3.3.6"
+    "angular-ui-tree-search": "git+https://github.com/hshn/angular-ui-tree-search.git"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
