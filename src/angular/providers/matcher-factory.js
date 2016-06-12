@@ -1,6 +1,6 @@
-import { defaultMatcherFactory } from '../../matcher-factory/default-matcher-factory';
+import { matcherFactory } from '../../matcher-factory/matcher-factory';
 
-export function defaultMatcherFactoryProvider () {
+export function matcherFactoryProvider () {
 
   let _properties = ['title'];
   let _match = (node, property, query) => (node[property] || '').indexOf(query) > -1;
@@ -8,6 +8,6 @@ export function defaultMatcherFactoryProvider () {
   this.setProperties = properties => _properties = properties;
 
   this.$get = () => {
-    return defaultMatcherFactory(_properties, _match);
+    return matcherFactory(_properties, _match);
   }
 }

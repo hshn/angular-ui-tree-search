@@ -1,10 +1,10 @@
-import { defaultMatcherFactory } from '../../src/matcher-factory/default-matcher-factory';
+import { matcherFactory } from '../../src/matcher-factory/matcher-factory';
 
 describe('default-matcher-factory', () => {
 
   let matcher;
   beforeEach(() => {
-    matcher = defaultMatcherFactory(['foo', 'bar'], (node, property, query) => node[property] === query);
+    matcher = matcherFactory(['foo', 'bar'], (node, property, query) => node[property] === query);
   });
 
   it('should match with `foo` attribute', () => {

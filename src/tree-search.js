@@ -1,6 +1,6 @@
 import { TraverserBuilder } from './traversal/traverser-builder';
 
-treeSearchFactory.$inject = ['uits.defaultMatcherFactory'];
+treeSearchFactory.$inject = ['ui.tree-search.matcherFactory'];
 export function treeSearchFactory (matcherFactory) {
 
   let builder = new TraverserBuilder();
