@@ -1,33 +1,24 @@
-import { Traverser } from './traverser';
-import { MatchVisitor, MatchParentVisitor, MatchChildrenVisitor } from './visitor';
+import { Traverser } from "./traverser";
 
 export class TraverserBuilder {
-  constructor() {
-    this.setChildNodePath('nodes');
-    this.setMatcher(node => {
-      throw new Error('No matcher was specified')
-    });
+  constructor(childNodePath) {
+    this.childNodePath = childNodePath;
+    this.visitors = [];
   }
 
-  setChildNodePath(childNodePath) {
-    this.childNodePath = childNodePath;
+  addVisitors(visitor) {
+    this.visitors.push(visitor);
 
     return this;
   }
 
-  setMatcher(matcher) {
-    this.matcher = matcher;
+  setVisitors(visitors) {
+    this.visitors = visitors;
 
     return this;
   }
 
   get() {
-    let visitors = [
-      new MatchVisitor(this.matcher),
-      new MatchChildrenVisitor(),
-      new MatchParentVisitor()
-    ];
-
-    return new Traverser(node => node[this.childNodePath] || [], visitors);
+    return new Traverser(node => node[this.childNodePath] || [], this.visitors);
   }
 }
