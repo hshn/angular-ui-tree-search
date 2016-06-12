@@ -1,9 +1,12 @@
 import * as angular from 'angular';
-import { treeSearchFactory } from './tree-search';
-import { matcherFactoryProvider } from './angular/providers';
+import { matcherFactoryProvider, traverseBuilderProvider } from './angular/providers';
+import { searchFactory } from './angular/factory';
+import { searchFilter } from './angular/filters';
 
 export default angular
   .module('ui.tree-search', [])
   .provider('ui.tree-search.matcherFactory', matcherFactoryProvider)
-  .filter('treeSearch', treeSearchFactory)
+  .provider('ui.tree-search.traverseBuilder', traverseBuilderProvider)
+  .factory('ui.tree-search.search', searchFactory)
+  .filter('treeSearch', searchFilter)
 ;
