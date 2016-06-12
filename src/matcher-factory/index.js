@@ -1,1 +1,1 @@
-export * from './default-factory';
+export * from './default-matcher-factory';
