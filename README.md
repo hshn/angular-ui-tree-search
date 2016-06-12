@@ -40,25 +40,25 @@ let module = angular.module('myApp', ['ui.tree', uiTreeSearch.name]);
 var module = angular.module('myApp', ['ui.tree', 'ui.tree-search']);
 ```
 
-### 3. Add the filter `treeSearch` to root nodes.
+### 3. Add the filter `uitsSearch` to root nodes.
 
 ```diff
 <div ui-tree>
   <ol ui-tree-nodes ng-model="list">
 -    <li ng-repeat="item in list"
-+    <li ng-repeat="item in list | treeSearch: query"
++    <li ng-repeat="item in list | uitsSearch: query"
          ui-tree-node ng-include="'items_renderer.html'"></li>
          ui-tree-node ng-include="'items_renderer.html'"></li>
   </ol>
 </div>
 ```
 
-### 4. Add UI reactions using property `$match` which will be added by the filter `treeSearch`.
+### 4. Add UI reactions using property `$match` which will be added by the filter `uitsSearch`.
 
 ```diff
 <div ui-tree>
   <ol ui-tree-nodes ng-model="list">
-    <li ng-repeat="item in list | treeSearch: query"
+    <li ng-repeat="item in list | uitsSearch: query"
 +       ng-show="item.$match"
         ui-tree-node ng-include="'items_renderer.html'"></li>
   </ol>
