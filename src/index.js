@@ -5,8 +5,8 @@ import { searchFilter } from './angular/filters';
 
 export default angular
   .module('ui.tree-search', [])
-  .provider('ui.tree-search.matcherFactory', matcherFactoryProvider)
-  .provider('ui.tree-search.traverseBuilder', traverseBuilderProvider)
-  .factory('ui.tree-search.search', searchFactory)
-  .filter('treeSearch', searchFilter)
+  .provider('uitsMatcherFactory', matcherFactoryProvider)
+  .provider('uitsTraverseBuilder', traverseBuilderProvider)
+  .factory('uitsSearch', searchFactory)
+  .filter('uitsSearch', searchFilter)
 ;

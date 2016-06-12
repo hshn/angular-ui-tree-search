@@ -1,6 +1,6 @@
 import { MatchVisitor, MatchParentVisitor, MatchChildrenVisitor } from '../../traversal/visitor';
 
-searchFactory.$inject = ['ui.tree-search.traverseBuilder', 'ui.tree-search.matcherFactory'];
+searchFactory.$inject = ['uitsTraverseBuilder', 'uitsMatcherFactory'];
 export function searchFactory(traverseBuilder, matcherFactory) {
 
   let matchParentVisitor = new MatchParentVisitor();
