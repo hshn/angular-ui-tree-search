@@ -140,3 +140,8 @@ tr.angular-ui-tree-empty {
     box-sizing: border-box;
 }
 
+.unmatched .angular-ui-tree-handle {
+    background-color: rgba(248, 250, 255, 0.3);
+    border: 1px solid rgba(218, 226, 234, 0.3);
+    color: rgba(124, 158, 178, 0.3);
+}
