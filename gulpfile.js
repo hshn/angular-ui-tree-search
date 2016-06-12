@@ -24,7 +24,7 @@ gulp.task('scripts:template', function () {
       './templates/**/*.html'
     ])
     .pipe($.angularTemplatecache({
-      module: 'angular-ui-tree-search'
+      module: 'ui-tree-search-demo'
     }))
     .pipe(gulp.dest('./dist'))
 });

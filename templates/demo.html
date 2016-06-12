@@ -11,7 +11,7 @@
         </div>
         <div ui-tree id="tree-root">
             <ol ui-tree-nodes="" ng-model="ctrl.nodes">
-                <li ng-repeat="node in ctrl.nodes | treeSearch:query" ui-tree-node ng-include="'nodes_renderer.html'" ng-class="[node.$matched ? 'matched' : 'unmatched']"></li>
+                <li ng-repeat="node in ctrl.nodes | uitsSearch:query" ui-tree-node ng-include="'nodes_renderer.html'" ng-class="[node.$matched ? 'matched' : 'unmatched']"></li>
             </ol>
         </div>
     </div>

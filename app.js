@@ -8,7 +8,7 @@ function node(id, title, nodes) {
 angular
   .module('ui-tree-search-demo', [
     'ui.tree',
-    'angular-ui-tree-search'
+    'ui.tree-search'
   ])
   .controller('DemoController', function () {
     this.nodes = [
