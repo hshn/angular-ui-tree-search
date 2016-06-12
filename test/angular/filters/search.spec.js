@@ -1,15 +1,15 @@
-import module from '../src';
+import module from '../../../src';
 import 'angular-mocks/ngMock';
 
-import './matchers';
+import '../../matchers';
 
-describe('treeFilter', () => {
+describe('treeSearchFilter', () => {
 
   let treeSearch, nodes;
   beforeEach(function () {
     angular.mock.module(module.name);
     angular.mock.inject($filter => {
-      treeSearch = $filter('treeSearch');
+      treeSearch = $filter('uitsSearch');
       nodes = [
         node(1, 'node1', [
           node(11, 'node1.1', [

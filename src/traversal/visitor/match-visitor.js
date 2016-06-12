@@ -14,8 +14,4 @@ export class MatchVisitor extends Visitor {
 
     return node;
   }
-
-  leaveNode(node) {
-    return super.leaveNode(node);
-  }
 }
