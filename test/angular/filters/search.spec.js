@@ -1,9 +1,9 @@
-import module from '../src';
+import module from '../../../src';
 import 'angular-mocks/ngMock';
 
-import './matchers';
+import '../../matchers';
 
-describe('treeFilter', () => {
+describe('treeSearchFilter', () => {
 
   let treeSearch, nodes;
   beforeEach(function () {
