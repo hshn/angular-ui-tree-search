@@ -81,8 +81,6 @@ Specify the property where the child nodes exists.
 
 ### `uitsMatcherFactoryProvider`
 
-#### Properties for matching with query (Type: `string[]`, Default: `['title']`)
-
 #### `setProperties(properties: string[] = ['title'])`
 
 Specify the properties which will be used for checking whether if the node is matched.
