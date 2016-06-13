@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45,9 +45,9 @@ function searchFactory(traverseBuilder, matcherFactory) {
   };
 }
 
-},{"../../traversal/visitor":11}],3:[function(require,module,exports){
+},{"../../traversal/visitor":12}],3:[function(require,module,exports){
 arguments[4][1][0].apply(exports,arguments)
-},{"./search":4,"dup":1}],4:[function(require,module,exports){
+},{"./search":4}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -118,7 +118,7 @@ function matcherFactoryProvider() {
   };
 }
 
-},{"../../matcher-factory/matcher-factory":8}],7:[function(require,module,exports){
+},{"../../matcher-factory/matcher-factory":9}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -140,7 +140,30 @@ function traverseBuilderProvider() {
   };
 }
 
-},{"../../traversal/traverser-builder":9}],8:[function(require,module,exports){
+},{"../../traversal/traverser-builder":10}],8:[function(require,module,exports){
+(function (global){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _angular = (typeof window !== "undefined" ? window['angular'] : typeof global !== "undefined" ? global['angular'] : null);
+
+var angular = _interopRequireWildcard(_angular);
+
+var _providers = require('./angular/providers');
+
+var _factory = require('./angular/factory');
+
+var _filters = require('./angular/filters');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = angular.module('ui.tree-search', []).provider('uitsMatcherFactory', _providers.matcherFactoryProvider).provider('uitsTraverseBuilder', _providers.traverseBuilderProvider).factory('uitsSearch', _factory.searchFactory).filter('uitsSearch', _filters.searchFilter);
+
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./angular/factory":1,"./angular/filters":3,"./angular/providers":5}],9:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -159,7 +182,7 @@ function matcherFactory(properties, match) {
   };
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -209,7 +232,7 @@ var TraverserBuilder = exports.TraverserBuilder = function () {
   return TraverserBuilder;
 }();
 
-},{"./traverser":10}],10:[function(require,module,exports){
+},{"./traverser":11}],11:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -257,7 +280,7 @@ var Traverser = exports.Traverser = function () {
   return Traverser;
 }();
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -312,7 +335,7 @@ Object.keys(_matchChildrenVisitor).forEach(function (key) {
   });
 });
 
-},{"./match-children-visitor":12,"./match-parent-visitor":13,"./match-visitor":14,"./visitor":15}],12:[function(require,module,exports){
+},{"./match-children-visitor":13,"./match-parent-visitor":14,"./match-visitor":15,"./visitor":16}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -373,7 +396,7 @@ var MatchChildrenVisitor = exports.MatchChildrenVisitor = function (_Visitor) {
   return MatchChildrenVisitor;
 }(_visitor.Visitor);
 
-},{"./visitor":15}],13:[function(require,module,exports){
+},{"./visitor":16}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -420,7 +443,7 @@ var MatchParentVisitor = exports.MatchParentVisitor = function (_Visitor) {
   return MatchParentVisitor;
 }(_visitor.Visitor);
 
-},{"./visitor":15}],14:[function(require,module,exports){
+},{"./visitor":16}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -466,7 +489,7 @@ var MatchVisitor = exports.MatchVisitor = function (_Visitor) {
   return MatchVisitor;
 }(_visitor.Visitor);
 
-},{"./visitor":15}],15:[function(require,module,exports){
+},{"./visitor":16}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -503,27 +526,5 @@ var Visitor = exports.Visitor = function () {
   return Visitor;
 }();
 
-},{}],16:[function(require,module,exports){
-(function (global){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _angular = (typeof window !== "undefined" ? window['angular'] : typeof global !== "undefined" ? global['angular'] : null);
-
-var angular = _interopRequireWildcard(_angular);
-
-var _providers = require('./angular/providers');
-
-var _factory = require('./angular/factory');
-
-var _filters = require('./angular/filters');
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = angular.module('ui.tree-search', []).provider('uitsMatcherFactory', _providers.matcherFactoryProvider).provider('uitsTraverseBuilder', _providers.traverseBuilderProvider).factory('uitsSearch', _factory.searchFactory).filter('uitsSearch', _filters.searchFilter);
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./angular/factory":1,"./angular/filters":3,"./angular/providers":5}]},{},[16]);
+},{}]},{},[8])
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJpbmRleC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBhbmd1bGFyIGZyb20gJ2FuZ3VsYXInO1xuaW1wb3J0IHsgbWF0Y2hlckZhY3RvcnlQcm92aWRlciwgdHJhdmVyc2VCdWlsZGVyUHJvdmlkZXIgfSBmcm9tICcuL2FuZ3VsYXIvcHJvdmlkZXJzJztcbmltcG9ydCB7IHNlYXJjaEZhY3RvcnkgfSBmcm9tICcuL2FuZ3VsYXIvZmFjdG9yeSc7XG5pbXBvcnQgeyBzZWFyY2hGaWx0ZXIgfSBmcm9tICcuL2FuZ3VsYXIvZmlsdGVycyc7XG5cbmV4cG9ydCBkZWZhdWx0IGFuZ3VsYXJcbiAgLm1vZHVsZSgndWkudHJlZS1zZWFyY2gnLCBbXSlcbiAgLnByb3ZpZGVyKCd1aXRzTWF0Y2hlckZhY3RvcnknLCBtYXRjaGVyRmFjdG9yeVByb3ZpZGVyKVxuICAucHJvdmlkZXIoJ3VpdHNUcmF2ZXJzZUJ1aWxkZXInLCB0cmF2ZXJzZUJ1aWxkZXJQcm92aWRlcilcbiAgLmZhY3RvcnkoJ3VpdHNTZWFyY2gnLCBzZWFyY2hGYWN0b3J5KVxuICAuZmlsdGVyKCd1aXRzU2VhcmNoJywgc2VhcmNoRmlsdGVyKVxuO1xuIl0sImZpbGUiOiJhbmd1bGFyLXVpLXRyZWUtc2VhcmNoLmpzIiwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=

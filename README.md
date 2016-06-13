@@ -1,4 +1,4 @@
-# ui.tree-search
+# [wip] ui.tree-search
 
 The angular module `angular-ui-tree-search` provides the filter which can be used with [`angular-ui-tree`](https://github.com/angular-ui-tree/angular-ui-tree) for searching nodes.
 
@@ -80,8 +80,6 @@ Specify the property where the child nodes exists.
 ```
 
 ### `uitsMatcherFactoryProvider`
-
-#### Properties for matching with query (Type: `string[]`, Default: `['title']`)
 
 #### `setProperties(properties: string[] = ['title'])`
 
