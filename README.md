@@ -1,4 +1,4 @@
-# ui.tree-search
+# [wip] ui.tree-search
 
 The angular module `angular-ui-tree-search` provides the filter which can be used with [`angular-ui-tree`](https://github.com/angular-ui-tree/angular-ui-tree) for searching nodes.
 
